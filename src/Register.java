@@ -2,34 +2,31 @@ import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class Login extends JFrame {
+public class Register extends JFrame {
+    private JPanel registerPanel;
     private JTextField tfUsername;
     private JPasswordField tfPassword;
-    private JButton btnLogin;
-    private JPanel loginPanel;
-    private JLabel btnSignUp;
+    private JButton btnRegister;
+    private JLabel btnSignIn;
+    private JTextField tfFirst;
+    private JTextField tfLast;
 
-    public Login() {
+    public Register() {
         ImageIcon image = new ImageIcon("src/bank.png");
         setIconImage(image.getImage());
-        setContentPane(loginPanel);
+        setContentPane(registerPanel);
         setTitle("Simple Banking");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         setSize(740,520);
         setLocationRelativeTo(null);
         setVisible(true);
-        btnLogin.addActionListener(e -> {
-            String username = tfUsername.getText();
-            String password = String.valueOf(tfPassword.getPassword());
 
-            Toast.makeToast(Login.this,"Login Successfully!",3);
-        });
-        btnSignUp.addMouseListener(new MouseListener() {
+        btnSignIn.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 dispose();
-                new Register();
+                new Login();
             }
             @Override
             public void mousePressed(MouseEvent e) {
@@ -48,10 +45,16 @@ public class Login extends JFrame {
 
             }
         });
-    }
+        btnRegister.addActionListener(e -> {
+            String fName = tfFirst.getText();
+            String lName = tfLast.getText();
+            String username = tfUsername.getText();
+            String password = String.valueOf(tfPassword.getPassword());
 
-    public static void main(String[] args) {
-        new Login();
+            dispose();
+            new Login();
+            Toast.makeToast(Register.this,"Registered Successfully!",3);
+        });
     }
 
 }
