@@ -94,6 +94,7 @@
             </constraints>
             <properties>
               <text value="Login"/>
+              <visible value="true"/>
             </properties>
           </component>
           <vspacer id="ff93e">

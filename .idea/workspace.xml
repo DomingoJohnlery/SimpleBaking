@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1ecc1456-8df2-41aa-a6ec-5029328febd4" name="Changes" comment="Third - Login Form">
+    <list default="true" id="1ecc1456-8df2-41aa-a6ec-5029328febd4" name="Changes" comment="Fourth - Register Form">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/mysql_connector_j_8_4_0.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SimpleBanking.iml" beforeDir="false" afterPath="$PROJECT_DIR$/SimpleBanking.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Login.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Login.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Register.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Register.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,10 +37,15 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW": "true",
+    "last_opened_file_path": "C:/Users/Johnlery/Documents/JavaGui/mysql-connector-j-8.4.0/mysql-connector-j-8.4.0.jar",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "project.propGUI"
   }
 }]]></component>
@@ -75,7 +85,14 @@
       <option name="project" value="LOCAL" />
       <updated>1716548610407</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Fourth - Register Form">
+      <created>1716564585808</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1716564585808</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -93,6 +110,7 @@
     <MESSAGE value="First" />
     <MESSAGE value="Second" />
     <MESSAGE value="Third - Login Form" />
-    <option name="LAST_COMMIT_MESSAGE" value="Third - Login Form" />
+    <MESSAGE value="Fourth - Register Form" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fourth - Register Form" />
   </component>
 </project>

@@ -1,6 +1,8 @@
 import javax.swing.*;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.*;
 
 public class Register extends JFrame {
     private JPanel registerPanel;
@@ -22,39 +24,73 @@ public class Register extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
-        btnSignIn.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                dispose();
-                new Login();
-            }
-            @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-            @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-            @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
-        });
         btnRegister.addActionListener(e -> {
             String fName = tfFirst.getText();
             String lName = tfLast.getText();
             String username = tfUsername.getText();
             String password = String.valueOf(tfPassword.getPassword());
 
-            dispose();
-            new Login();
-            Toast.makeToast(Register.this,"Registered Successfully!",3);
+            if (fName.isBlank() || lName.isBlank() || username.isBlank() || password.isBlank()) {
+                Toast.makeToast(Register.this,"Please Fill All The Fields!",3);
+            } else if (checkUser(username)){
+                Toast.makeToast(Register.this,"Username Already Exist!",3);
+            } else {
+                if (register(username,password,fName,lName,0)){
+                    dispose();
+                    new Login();
+                    Toast.makeToast(Register.this,"Registered Successfully!",3);
+                } else {
+                    Toast.makeToast(Register.this,"Registration Failed!",3);
+                }
+            }
+        });
+        btnSignIn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                dispose();
+                new Login();
+            }
         });
     }
 
+    private boolean register(String username, String password, String firstname, String lastname, int balance) {
+        String url = "jdbc:mysql://localhost:3306/java";
+        String dbUser = "root";
+        String dbPass = "johnlol0909";
+
+        try (Connection conn = DriverManager.getConnection(url, dbUser, dbPass)) {
+            String query = "INSERT INTO users (username, pass, firstname,lastname,balance) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, username);
+            stmt.setString(2, password);
+            stmt.setString(3, firstname);
+            stmt.setString(4, lastname);
+            stmt.setInt(5, balance);
+
+            int affectedRows = stmt.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    private boolean checkUser(String username) {
+        String url = "jdbc:mysql://localhost:3306/java";
+        String dbUser = "root";
+        String dbPass = "johnlol0909";
+
+        try (Connection conn = DriverManager.getConnection(url, dbUser, dbPass)) {
+            String query = "SELECT * FROM users WHERE username = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, username);
+
+            ResultSet rs = stmt.executeQuery();
+            return rs.next();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
 }

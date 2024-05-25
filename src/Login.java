@@ -1,6 +1,7 @@
 import javax.swing.*;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.sql.*;
 
 public class Login extends JFrame {
     private JTextField tfUsername;
@@ -23,35 +24,48 @@ public class Login extends JFrame {
             String username = tfUsername.getText();
             String password = String.valueOf(tfPassword.getPassword());
 
-            Toast.makeToast(Login.this,"Login Successfully!",3);
+            if (checkLoginInfo(username,password)) {
+                dispose();
+                new Main(username);
+                Toast.makeToast(Login.this,"Login Successfully!",3);
+            } else {
+                Toast.makeToast(Login.this,"Incorrect Login Info!",3);
+            }
+
+
         });
-        btnSignUp.addMouseListener(new MouseListener() {
+
+        btnSignUp.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
                 dispose();
                 new Register();
-            }
-            @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-            @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-            @Override
-            public void mouseExited(MouseEvent e) {
-
             }
         });
     }
 
     public static void main(String[] args) {
         new Login();
+    }
+
+    private boolean checkLoginInfo(String username,String password) {
+        String url = "jdbc:mysql://localhost:3306/java";
+        String dbUser = "root";
+        String dbPass = "johnlol0909";
+
+        try (Connection conn = DriverManager.getConnection(url, dbUser, dbPass)) {
+            String query = "SELECT * FROM users WHERE username = ? AND pass = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, username);
+            stmt.setString(2, password);
+
+            ResultSet rs = stmt.executeQuery();
+            return rs.next();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
     }
 
 }
