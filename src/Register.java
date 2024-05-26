@@ -3,6 +3,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.*;
+import java.time.LocalDate;
 
 public class Register extends JFrame {
     private JPanel registerPanel;
@@ -60,13 +61,14 @@ public class Register extends JFrame {
         String dbPass = "johnlol0909";
 
         try (Connection conn = DriverManager.getConnection(url, dbUser, dbPass)) {
-            String query = "INSERT INTO users (username, pass, firstname,lastname,balance) VALUES (?, ?, ?, ?, ?)";
+            String query = "INSERT INTO users (username, pass, firstname,lastname,balance,opening) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, username);
             stmt.setString(2, password);
             stmt.setString(3, firstname);
             stmt.setString(4, lastname);
             stmt.setInt(5, balance);
+            stmt.setDate(6, Date.valueOf(LocalDate.now()));
 
             int affectedRows = stmt.executeUpdate();
             return affectedRows > 0;

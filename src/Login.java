@@ -24,15 +24,15 @@ public class Login extends JFrame {
             String username = tfUsername.getText();
             String password = String.valueOf(tfPassword.getPassword());
 
-            if (checkLoginInfo(username,password)) {
+            if (username.isBlank() || password.isBlank()) {
+                Toast.makeToast(Login.this,"Please Fill All The Fields!",3);
+            } else if (checkLoginInfo(username,password)) {
                 dispose();
                 new Main(username);
                 Toast.makeToast(Login.this,"Login Successfully!",3);
             } else {
                 Toast.makeToast(Login.this,"Incorrect Login Info!",3);
             }
-
-
         });
 
         btnSignUp.addMouseListener(new MouseAdapter() {
