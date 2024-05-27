@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.math.BigDecimal;
 import java.sql.*;
 import java.text.NumberFormat;
 import java.util.Currency;
@@ -59,10 +58,12 @@ public class Main extends JFrame{
             dashPanel.setVisible(true);
         });
         btnDepositBack.addActionListener(e -> {
+            tfDeposit.setText("");
             depositPanel.setVisible(false);
             dashPanel.setVisible(true);
         });
         btnWithdrawBack.addActionListener(e -> {
+            tfWithdraw.setText("");
             withdrawPanel.setVisible(false);
             dashPanel.setVisible(true);
         });
@@ -92,16 +93,49 @@ public class Main extends JFrame{
             }
         });
         btnDeposit.addActionListener(e -> {
-            deposit(username, Double.parseDouble(tfDeposit.getText()));
-            updateDisplay();
-            depositPanel.setVisible(false);
-            dashPanel.setVisible(true);
+            String deposit = tfDeposit.getText().replaceAll("[,_ ]","");
+            if (deposit.isBlank()) {
+                Toast.makeToast(Main.this,"Please Enter Deposit Value!",3);
+            } else {
+                if (deposit.matches("\\d+(\\.\\d+)?") && !deposit.matches("0+(\\.0+)?")) {
+                    if (JOptionPane.showConfirmDialog(null,"Do you wish to proceed?","Deposit Confirmation", JOptionPane.YES_NO_OPTION) == 0) {
+                        if (deposit(username, Double.parseDouble(deposit))) {
+                            if (JOptionPane.showConfirmDialog(null,"Do you wish deposit again?","Transaction Successful!", JOptionPane.YES_NO_OPTION) == 1) {
+                                depositPanel.setVisible(false);
+                                dashPanel.setVisible(true);
+                            }
+                            updateDisplay();
+                            tfDeposit.setText("");
+                        }
+                    }
+                } else {
+                    Toast.makeToast(Main.this,"Invalid Value, Try Again!",3);
+                }
+            }
         });
         btnWithdraw.addActionListener(e -> {
-            withdraw(username, Double.parseDouble(tfWithdraw.getText()));
-            updateDisplay();
-            withdrawPanel.setVisible(false);
-            dashPanel.setVisible(true);
+            String withdraw = tfWithdraw.getText().replaceAll("[,_ ]","");
+            if (withdraw.isBlank()) {
+                Toast.makeToast(Main.this,"Please Enter Withdrawal Value!",3);
+            } else if (getBalance(username) < Double.parseDouble(withdraw)) {
+                Toast.makeToast(Main.this,"Insufficient Balance!",3);
+            }
+            else {
+                if (withdraw.matches("\\d+(\\.\\d+)?") && !withdraw.matches("0+(\\.0+)?")) {
+                    if (JOptionPane.showConfirmDialog(null,"Do you wish to proceed?","Withdrawal Confirmation", JOptionPane.YES_NO_OPTION) == 0) {
+                        if (withdraw(username, Double.parseDouble(withdraw))){
+                            if (JOptionPane.showConfirmDialog(null,"Do you wish withdraw again?","Transaction Successful!", JOptionPane.YES_NO_OPTION) == 1) {
+                                withdrawPanel.setVisible(false);
+                                dashPanel.setVisible(true);
+                            }
+                            updateDisplay();
+                            tfWithdraw.setText("");
+                        }
+                    }
+                } else {
+                    Toast.makeToast(Main.this,"Invalid Value, Try Again!",3);
+                }
+            }
         });
     }
 

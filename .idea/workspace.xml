@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1ecc1456-8df2-41aa-a6ec-5029328febd4" name="Changes" comment="5th Commit - Dashboard">
+    <list default="true" id="1ecc1456-8df2-41aa-a6ec-5029328febd4" name="Changes" comment="6th Commit - Functionality">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Login.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Login.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Login.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Register.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Register.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Register.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Register.form" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +97,14 @@
       <option name="project" value="LOCAL" />
       <updated>1716643790626</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="6th Commit - Functionality">
+      <created>1716731194514</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1716731194514</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -116,6 +124,7 @@
     <MESSAGE value="Third - Login Form" />
     <MESSAGE value="Fourth - Register Form" />
     <MESSAGE value="5th Commit - Dashboard" />
-    <option name="LAST_COMMIT_MESSAGE" value="5th Commit - Dashboard" />
+    <MESSAGE value="6th Commit - Functionality" />
+    <option name="LAST_COMMIT_MESSAGE" value="6th Commit - Functionality" />
   </component>
 </project>

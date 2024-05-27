@@ -34,7 +34,6 @@ public class Login extends JFrame {
                 Toast.makeToast(Login.this,"Incorrect Login Info!",3);
             }
         });
-
         btnSignUp.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -44,11 +43,9 @@ public class Login extends JFrame {
             }
         });
     }
-
     public static void main(String[] args) {
         new Login();
     }
-
     private boolean checkLoginInfo(String username,String password) {
         String url = "jdbc:mysql://localhost:3306/java";
         String dbUser = "root";
@@ -67,5 +64,4 @@ public class Login extends JFrame {
             return false;
         }
     }
-
 }
