@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1ecc1456-8df2-41aa-a6ec-5029328febd4" name="Changes" comment="6th Commit - Functionality">
+    <list default="true" id="1ecc1456-8df2-41aa-a6ec-5029328febd4" name="Changes" comment="7th Commit - Finished">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Login.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Login.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Login.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Register.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Register.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Register.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Register.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Toast.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Toast.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/account_info.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/image/account_info.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bank.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/image/bank.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/banking.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/image/banking.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/deposit.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/image/deposit.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/withdraw.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/image/withdraw.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +56,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Johnlery\Documents\JavaGui\SimpleBanking\src\image" />
       <recent name="C:\Users\Johnlery\Documents\JavaGui\SimpleBanking\src" />
       <recent name="C:\Users\Johnlery\Documents\JavaGui\SimpleBanking" />
     </key>
@@ -104,7 +112,14 @@
       <option name="project" value="LOCAL" />
       <updated>1716731194514</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="7th Commit - Finished">
+      <created>1716780330056</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1716780330056</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -125,6 +140,7 @@
     <MESSAGE value="Fourth - Register Form" />
     <MESSAGE value="5th Commit - Dashboard" />
     <MESSAGE value="6th Commit - Functionality" />
-    <option name="LAST_COMMIT_MESSAGE" value="6th Commit - Functionality" />
+    <MESSAGE value="7th Commit - Finished" />
+    <option name="LAST_COMMIT_MESSAGE" value="7th Commit - Finished" />
   </component>
 </project>

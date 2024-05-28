@@ -35,7 +35,7 @@
                   <foreground color="-1"/>
                   <horizontalAlignment value="0"/>
                   <horizontalTextPosition value="0"/>
-                  <icon value="deposit.png"/>
+                  <icon value="image/deposit.png"/>
                   <opaque value="true"/>
                   <text value="Deposit"/>
                   <verticalTextPosition value="3"/>
@@ -51,7 +51,7 @@
                   <foreground color="-1"/>
                   <horizontalAlignment value="0"/>
                   <horizontalTextPosition value="0"/>
-                  <icon value="withdraw.png"/>
+                  <icon value="image/withdraw.png"/>
                   <opaque value="true"/>
                   <text value="Withdraw"/>
                   <verticalTextPosition value="3"/>
@@ -69,7 +69,7 @@
                   <foreground color="-1"/>
                   <horizontalAlignment value="0"/>
                   <horizontalTextPosition value="0"/>
-                  <icon value="account_info.png"/>
+                  <icon value="image/account_info.png"/>
                   <iconTextGap value="4"/>
                   <opaque value="true"/>
                   <text value="Account Info"/>

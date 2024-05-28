@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.*;
 import java.text.NumberFormat;
 import java.util.Currency;
 import java.util.Locale;
@@ -30,13 +29,12 @@ public class Main extends JFrame{
     private JButton btnWithdraw;
     private JTextField tfWithdraw;
     private JLabel tvWithBalance;
-    String accountNo;
     String username;
-    String openingDate;
+    DBHelper DB;
 
     public Main(String username) {
+        DB = new DBHelper();
         this.username = username;
-
         ImageIcon image = new ImageIcon("src/bank.png");
         setIconImage(image.getImage());
         setContentPane(mainPanel);
@@ -48,25 +46,27 @@ public class Main extends JFrame{
         setVisible(true);
 
         updateDisplay();
+        dashBoardButtons();
+        accountInfoButtons();
+        depositButtons();
+        withdrawButtons();
+    }
+    private void updateDisplay() {
+        UserModel user = DB.getUserInfo(username);
 
-        btnLogout.addActionListener(e -> {
-            dispose();
-            new Login();
-        });
-        btnInfoBack.addActionListener(e -> {
-            infoPanel.setVisible(false);
-            dashPanel.setVisible(true);
-        });
-        btnDepositBack.addActionListener(e -> {
-            tfDeposit.setText("");
-            depositPanel.setVisible(false);
-            dashPanel.setVisible(true);
-        });
-        btnWithdrawBack.addActionListener(e -> {
-            tfWithdraw.setText("");
-            withdrawPanel.setVisible(false);
-            dashPanel.setVisible(true);
-        });
+        NumberFormat phFormatter = NumberFormat.getCurrencyInstance(Locale.US);
+        phFormatter.setCurrency(Currency.getInstance("PHP"));
+        String currPHP = phFormatter.format(DB.getBalance(username));
+
+        tvName.setText(user.getFirstname() + " " + user.getLastname());
+        tvAccNo.setText(user.getAccountNo());
+        tvOpenDate.setText(user.getOpeningDate());
+        tvInfoBalance.setText(currPHP);
+        tvDepositBalance.setText("Balance: " + currPHP);
+        tvWithBalance.setText("Balance: " + currPHP);
+        tvBalance.setText("Balance: " + currPHP);
+    }
+    private void dashBoardButtons() {
         btnInfo.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -75,7 +75,6 @@ public class Main extends JFrame{
                 infoPanel.setVisible(true);
             }
         });
-
         btnToDeposit.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -92,6 +91,23 @@ public class Main extends JFrame{
                 withdrawPanel.setVisible(true);
             }
         });
+        btnLogout.addActionListener(e -> {
+            dispose();
+            new Login();
+        });
+    }
+    private void accountInfoButtons() {
+        btnInfoBack.addActionListener(e -> {
+            infoPanel.setVisible(false);
+            dashPanel.setVisible(true);
+        });
+    }
+    private void depositButtons() {
+        btnDepositBack.addActionListener(e -> {
+            tfDeposit.setText("");
+            depositPanel.setVisible(false);
+            dashPanel.setVisible(true);
+        });
         btnDeposit.addActionListener(e -> {
             String deposit = tfDeposit.getText().replaceAll("[,_ ]","");
             if (deposit.isBlank()) {
@@ -99,7 +115,7 @@ public class Main extends JFrame{
             } else {
                 if (deposit.matches("\\d+(\\.\\d+)?") && !deposit.matches("0+(\\.0+)?")) {
                     if (JOptionPane.showConfirmDialog(null,"Do you wish to proceed?","Deposit Confirmation", JOptionPane.YES_NO_OPTION) == 0) {
-                        if (deposit(username, Double.parseDouble(deposit))) {
+                        if (DB.deposit(username, Double.parseDouble(deposit))) {
                             if (JOptionPane.showConfirmDialog(null,"Do you wish deposit again?","Transaction Successful!", JOptionPane.YES_NO_OPTION) == 1) {
                                 depositPanel.setVisible(false);
                                 dashPanel.setVisible(true);
@@ -113,17 +129,24 @@ public class Main extends JFrame{
                 }
             }
         });
+    }
+    private void withdrawButtons() {
+        btnWithdrawBack.addActionListener(e -> {
+            tfWithdraw.setText("");
+            withdrawPanel.setVisible(false);
+            dashPanel.setVisible(true);
+        });
         btnWithdraw.addActionListener(e -> {
             String withdraw = tfWithdraw.getText().replaceAll("[,_ ]","");
             if (withdraw.isBlank()) {
                 Toast.makeToast(Main.this,"Please Enter Withdrawal Value!",3);
-            } else if (getBalance(username) < Double.parseDouble(withdraw)) {
+            } else if (DB.getBalance(username) < Double.parseDouble(withdraw)) {
                 Toast.makeToast(Main.this,"Insufficient Balance!",3);
             }
             else {
                 if (withdraw.matches("\\d+(\\.\\d+)?") && !withdraw.matches("0+(\\.0+)?")) {
                     if (JOptionPane.showConfirmDialog(null,"Do you wish to proceed?","Withdrawal Confirmation", JOptionPane.YES_NO_OPTION) == 0) {
-                        if (withdraw(username, Double.parseDouble(withdraw))){
+                        if (DB.withdraw(username, Double.parseDouble(withdraw))){
                             if (JOptionPane.showConfirmDialog(null,"Do you wish withdraw again?","Transaction Successful!", JOptionPane.YES_NO_OPTION) == 1) {
                                 withdrawPanel.setVisible(false);
                                 dashPanel.setVisible(true);
@@ -137,119 +160,5 @@ public class Main extends JFrame{
                 }
             }
         });
-    }
-
-    private double getBalance(String username) {
-        String url = "jdbc:mysql://localhost:3306/java";
-        String dbUser = "root";
-        String dbPass = "johnlol0909";
-
-        try (Connection conn = DriverManager.getConnection(url, dbUser, dbPass)) {
-            String query = "SELECT balance FROM users WHERE username = ?";
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, username);
-
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) return rs.getDouble("balance");
-            else return -1;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            return -1;
-        }
-    }
-
-    private String getFullName() {
-        String url = "jdbc:mysql://localhost:3306/java";
-        String dbUser = "root";
-        String dbPass = "johnlol0909";
-
-        try (Connection conn = DriverManager.getConnection(url, dbUser, dbPass)) {
-            String query = "SELECT accountNo,firstname,lastname,opening FROM users WHERE username = ?";
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, username);
-
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()){
-                accountNo = String.valueOf(rs.getString("accountNo"));
-                openingDate = String.valueOf(rs.getDate("opening"));
-                return rs.getString("firstname") + " " + rs.getString("lastname");
-            }
-            else return null;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            return null;
-        }
-    }
-
-    private boolean deposit(String username, double amount){
-        double balance = getBalance(username);
-
-        if (balance == -1) {
-            System.out.println("User not found or error occurred.");
-            return false;
-        }
-
-        String url = "jdbc:mysql://localhost:3306/java";
-        String dbUser = "root";
-        String dbPass = "johnlol0909";
-
-        double newBalance = balance + amount;
-
-        try (Connection conn = DriverManager.getConnection(url, dbUser, dbPass)) {
-             String query = "UPDATE users SET balance = ? WHERE username = ?";
-             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setDouble(1, newBalance);
-            stmt.setString(2, username);
-
-            int affectedRows = stmt.executeUpdate();
-            return affectedRows > 0;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            return false;
-        }
-    }
-
-    private boolean withdraw(String username, double amount) {
-        double balance = getBalance(username);
-
-        if (balance == -1) {
-            System.out.println("User not found or error occurred.");
-            return false;
-        }
-
-        String url = "jdbc:mysql://localhost:3306/java";
-        String dbUser = "root";
-        String dbPass = "johnlol0909";
-
-        double newBalance = balance - amount;
-
-        try (Connection conn = DriverManager.getConnection(url, dbUser, dbPass)) {
-            String query = "UPDATE users SET balance = ? WHERE username = ?";
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setDouble(1, newBalance);
-            stmt.setString(2, username);
-
-            int affectedRows = stmt.executeUpdate();
-            return affectedRows > 0;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            return false;
-        }
-    }
-
-    private void updateDisplay() {
-        String name = getFullName();
-
-        NumberFormat phFormatter = NumberFormat.getCurrencyInstance(Locale.US);
-        phFormatter.setCurrency(Currency.getInstance("PHP"));
-        String currPHP = phFormatter.format(getBalance(username));
-
-        tvName.setText(name);
-        tvAccNo.setText(accountNo);
-        tvOpenDate.setText(openingDate);
-        tvInfoBalance.setText(currPHP);
-        tvDepositBalance.setText("Balance: " + currPHP);
-        tvWithBalance.setText("Balance: " + currPHP);
-        tvBalance.setText("Balance: " + currPHP);
     }
 }

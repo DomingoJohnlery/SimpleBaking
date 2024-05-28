@@ -86,7 +86,7 @@ public class Toast extends JFrame {
             try {
                 Toast toastFrame = new Toast(owner, toastText);
                 toastFrame.fadeIn();
-                Thread.sleep(durationSec * 1000);
+                Thread.sleep(durationSec * 1000L);
                 toastFrame.fadeOut();
             } catch (Exception ex) {
                 ex.printStackTrace();
