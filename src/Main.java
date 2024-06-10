@@ -35,7 +35,7 @@ public class Main extends JFrame{
     public Main(String username) {
         DB = new DBHelper();
         this.username = username;
-        ImageIcon image = new ImageIcon("src/bank.png");
+        ImageIcon image = new ImageIcon("src/image/bank.png");
         setIconImage(image.getImage());
         setContentPane(mainPanel);
         setTitle("Simple Banking");

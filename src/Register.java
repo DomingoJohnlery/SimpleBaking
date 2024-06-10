@@ -15,7 +15,7 @@ public class Register extends JFrame {
     public Register() {
         DB = new DBHelper();
 
-        ImageIcon image = new ImageIcon("src/bank.png");
+        ImageIcon image = new ImageIcon("src/image/bank.png");
         setIconImage(image.getImage());
         setContentPane(registerPanel);
         setTitle("Simple Banking");
